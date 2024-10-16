@@ -1,0 +1,274 @@
+# 定義 HTML 結構      
+html_content = """
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冷氣MENU</title>
+    <style>
+        .inline {
+            display: inline-block; /* 將標籤與選單水平排列 */
+            margin-right: 10px; /* 增加標籤和選單之間的間距 */
+        }
+        .block {
+            display: block;
+            margin-top: 10px; /* 增加垂直間距 */
+        }
+        #result {
+            text-align: center; /* 將結果置中 */
+            font-size: 24px; /* 調整字體大小 */
+            margin-top: 20px; /* 增加上邊距 */
+        }
+        .error {
+            color: red; /* 錯誤消息顯示為紅色 */
+        }
+    </style>
+    <script>
+        function showSubOptions() {
+            var mainSelect = document.getElementById("options");
+            var subSelect = document.getElementById("sub-options");
+            var subLabel = document.getElementById("sub-label");
+            var thirdSelect = document.getElementById("third-options");
+            var thirdLabel = document.getElementById("third-label");
+            var checkboxDiv = document.getElementById("checkbox-div");
+            var result = document.getElementById("result");
+            var sumDisplay = document.getElementById("sumDisplay");
+
+            // 隱藏所有下層選單和勾選題
+            subSelect.style.display = "none";
+            subLabel.style.display = "none";
+            thirdSelect.style.display = "none"; 
+            thirdLabel.style.display = "none";
+            checkboxDiv.style.display = "none"; 
+            result.innerHTML = ""; // 清空結果顯示
+            sumDisplay.innerHTML = ""; // 清空總和顯示
+
+            // 清空下層選單的選擇
+            subSelect.value = "";
+            thirdSelect.value = "";
+
+            // 清除之前的錯誤提示
+            result.classList.remove("error");
+            result.innerHTML = ""; // 清空錯誤提示
+          
+            // 根據選擇的主選項顯示相應的子選項
+            if (mainSelect.value) {
+                subSelect.innerHTML = `
+                    <option value="">請選擇</option>
+                    <option value="1">一對一</option>
+                    <option value="2">一對多</option>`;
+                subSelect.style.display = "inline-block"; 
+                subLabel.style.display = "inline-block"; 
+            }
+        }
+
+        function showThirdOptions() {
+            var mainSelect = document.getElementById("options");
+            var subSelect = document.getElementById("sub-options");
+            var thirdSelect = document.getElementById("third-options");
+            var thirdLabel = document.getElementById("third-label");
+            var checkboxDiv = document.getElementById("checkbox-div");
+            var result = document.getElementById("result");
+
+            // 清除之前的錯誤提示
+            result.classList.remove("error");
+            result.innerHTML = ""; // 清空錯誤提示
+
+            // 清空第三層選單
+            thirdSelect.innerHTML = "";
+            thirdSelect.style.display = "none"; 
+            thirdLabel.style.display = "none";
+
+            // 日立的子選項
+            if (mainSelect.value === "option1") {
+                if (subSelect.value === "1") {
+                    thirdSelect.innerHTML = `
+                        <option value="">請選擇</option>
+                        <option value="A">室外機15噸</option>
+                        <option value="B">室外機20噸</option>`;
+                } else if (subSelect.value === "2") {
+                    thirdSelect.innerHTML = `
+                        <option value="">請選擇</option>
+                        <option value="C">室外機15噸</option>
+                        <option value="D">室外機40噸</option>`;
+                }
+            }
+
+            // 大金的子選項
+            else if (mainSelect.value === "option2") {
+                if (subSelect.value === "1") {
+                    thirdSelect.innerHTML = `
+                        <option value="">請選擇</option>
+                        <option value="E">室外機15噸</option>
+                        <option value="F">室外機30噸</option>`;
+                } else if (subSelect.value === "2") {
+                    thirdSelect.innerHTML = `
+                        <option value="">請選擇</option>
+                        <option value="G">室外機15噸</option>
+                        <option value="H">室外機60噸</option>`;
+                }
+            }
+
+            // 國際的子選項
+            else if (mainSelect.value === "option3") {
+                if (subSelect.value === "1") {
+                    thirdSelect.innerHTML = `
+                        <option value="">請選擇</option>
+                        <option value="I">室外機15噸</option>
+                        <option value="J">室外機40噸</option>`;
+                } else if (subSelect.value === "2") {
+                    thirdSelect.innerHTML = `
+                        <option value="">請選擇</option>
+                        <option value="K">室外機15噸</option>
+                        <option value="L">室外機80噸</option>`;
+                }
+            }
+
+            // 如果有選擇子選項，顯示第三層選單
+            if (subSelect.value) {
+                thirdSelect.style.display = "inline-block"; 
+                thirdLabel.style.display = "inline-block"; 
+            } else {
+                // 當沒有選擇子選項時，隱藏第三層選單及其勾選題
+                thirdSelect.style.display = "none"; 
+                thirdLabel.style.display = "none";
+                document.getElementById("checkbox-div").style.display = "none"; 
+            }
+
+            // 清空選擇室內機的相關資訊
+            var checkboxDiv = document.getElementById("checkbox-div");
+            checkboxDiv.style.display = "none"; 
+
+            // 隱藏目前總和顯示
+            sumDisplay.innerHTML = ""; // 清空總和顯示
+        }
+
+        function displayCheckboxes() {
+            var subSelect = document.getElementById("sub-options");
+            var thirdSelect = document.getElementById("third-options");
+            var checkboxDiv = document.getElementById("checkbox-div");
+            var checkboxes = document.getElementById("checkboxes");
+            var result = document.getElementById("result");
+            var sumDisplay = document.getElementById("sumDisplay");
+
+            // 清除之前的錯誤提示
+            result.classList.remove("error");
+            result.innerHTML = ""; // 清空錯誤提示
+
+            checkboxDiv.style.display = "none"; 
+
+            // 顯示勾選題
+            if (thirdSelect.value) {
+                checkboxDiv.style.display = "block"; // 顯示勾選題
+                
+                // 根據子選項顯示單選或多選
+                if (subSelect.value === "1") {
+                    checkboxes.innerHTML = `
+                        <input type="radio" id="option1" name="options" value="10" onchange="updateResult()">
+                        <label for="option1">室內機10噸 </label><br>
+                        <input type="radio" id="option2" name="options" value="20" onchange="updateResult()">
+                        <label for="option2">室內機20噸 </label><br>`;
+                } else {
+                    checkboxes.innerHTML = `
+                        <input type="checkbox" id="option1" value="10" onchange="updateResult()">
+                        <label for="option1">室內機10噸 </label><br>
+                        <input type="checkbox" id="option2" value="20" onchange="updateResult()">
+                        <label for="option2">室內機20噸 </label><br>`;
+                }
+            } else {
+                checkboxDiv.style.display = "none"; // 隱藏勾選題
+            }
+        }
+
+        function updateResult() {
+            var thirdSelect = document.getElementById("third-options");
+            var selectedOption = document.querySelector('input[name="options"]:checked');
+            var checkboxes = document.querySelectorAll('#checkboxes input[type="checkbox"]');
+            var result = document.getElementById("result");
+            var sumDisplay = document.getElementById("sumDisplay");
+            var total = 0;
+
+            // 室外機的對應值
+            var valueMapping = {
+                "A": 15,
+                "B": 20,
+                "C": 15,
+                "D": 40,
+                "E": 15,
+                "F": 30,
+                "G": 15,
+                "H": 60,
+                "I": 15,
+                "J": 40,
+                "K": 15,
+                "L": 80,
+            };
+
+            // 取得所選擇的室外機的值
+            var selectedValue = valueMapping[thirdSelect.value.charAt(thirdSelect.value.length - 1)];
+
+            // 計算選擇的總和
+            if (selectedOption) {
+                total += parseInt(selectedOption.value);
+            }
+
+            // 多選處理
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    total += parseInt(checkbox.value); // 多選的值
+                }
+            });
+
+            // 更新錯誤提示和總和顯示
+            if (total > selectedValue) {
+                result.innerHTML = "總和不可超過 " + selectedValue + " 噸。";
+                result.classList.add("error");
+            } else {
+                sumDisplay.innerHTML = "目前總和: " + total + " 噸。";
+                result.innerHTML = ""; // 隱藏錯誤提示
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="block">
+        <label for="options" class="inline">選擇品牌：</label>
+        <select id="options" name="options" class="inline" onchange="showSubOptions()">
+            <option value="">請選擇</option>
+            <option value="option1">日立</option>
+            <option value="option2">大金</option>
+            <option value="option3">國際</option>
+        </select>
+    </div>
+
+    <div class="block">
+        <label id="sub-label" for="sub-options" class="inline" style="display:none;">選擇機型：</label>
+        <select id="sub-options" name="sub-options" class="inline" style="display:none;" onchange="showThirdOptions()">
+        </select>
+    </div>
+
+    <div class="block">
+        <label id="third-label" for="third-options" class="inline" style="display:none;">選擇室外機：</label>
+        <select id="third-options" name="third-options" class="inline" style="display:none;" onchange="displayCheckboxes()">
+        </select>
+    </div>
+
+    <div id="checkbox-div" class="block" style="display:none;">
+        <p>選擇室內機：</p>
+        <div id="checkboxes">
+            <!-- 動態添加選項 -->
+        </div>
+    </div>
+
+    <div id="result"></div>
+    <div id="sumDisplay"></div>
+</body>
+</html>
+"""
+
+# 將 HTML 寫入檔案
+with open("dynamic_dropdown.html", "w", encoding="utf-8") as file:
+    file.write(html_content)
+
+print("HTML 檔案已成功生成！")
