@@ -51,10 +51,10 @@
           
             // 根據選擇的主選項顯示相應的子選項
             if (mainSelect.value) {
-                subSelect.innerHTML = `
-                    <option value="">請選擇</option>
-                    <option value="1">一對一</option>
-                    <option value="2">一對多</option>`;
+                subSelect.innerHTML = 
+                    '<option value="">請選擇</option>' +
+                    '<option value="1">一對一</option>' +
+                    '<option value="2">一對多</option>';
                 subSelect.style.display = "inline-block"; 
                 subLabel.style.display = "inline-block"; 
             }
@@ -80,45 +80,45 @@
             // 日立的子選項
             if (mainSelect.value === "option1") {
                 if (subSelect.value === "1") {
-                    thirdSelect.innerHTML = `
-                        <option value="">請選擇</option>
-                        <option value="A">室外機15噸</option>
-                        <option value="B">室外機20噸</option>`;
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="A">室外機15噸 (價格: 50000元)</option>' +
+                        '<option value="B">室外機20噸 (價格: 70000元)</option>';
                 } else if (subSelect.value === "2") {
-                    thirdSelect.innerHTML = `
-                        <option value="">請選擇</option>
-                        <option value="C">室外機15噸</option>
-                        <option value="D">室外機40噸</option>`;
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="C">室外機15噸 (價格: 50000元)</option>' +
+                        '<option value="D">室外機40噸 (價格: 120000元)</option>';
                 }
             }
 
             // 大金的子選項
             else if (mainSelect.value === "option2") {
                 if (subSelect.value === "1") {
-                    thirdSelect.innerHTML = `
-                        <option value="">請選擇</option>
-                        <option value="E">室外機15噸</option>
-                        <option value="F">室外機30噸</option>`;
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="E">室外機15噸 (價格: 55000元)</option>' +
+                        '<option value="F">室外機30噸 (價格: 90000元)</option>';
                 } else if (subSelect.value === "2") {
-                    thirdSelect.innerHTML = `
-                        <option value="">請選擇</option>
-                        <option value="G">室外機15噸</option>
-                        <option value="H">室外機60噸</option>`;
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="G">室外機15噸 (價格: 55000元)</option>' +
+                        '<option value="H">室外機60噸 (價格: 150000元)</option>';
                 }
             }
 
             // 國際的子選項
             else if (mainSelect.value === "option3") {
                 if (subSelect.value === "1") {
-                    thirdSelect.innerHTML = `
-                        <option value="">請選擇</option>
-                        <option value="I">室外機15噸</option>
-                        <option value="J">室外機40噸</option>`;
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="I">室外機15噸 (價格: 60000元)</option>' +
+                        '<option value="J">室外機40噸 (價格: 110000元)</option>';
                 } else if (subSelect.value === "2") {
-                    thirdSelect.innerHTML = `
-                        <option value="">請選擇</option>
-                        <option value="K">室外機15噸</option>
-                        <option value="L">室外機80噸</option>`;
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="K">室外機15噸 (價格: 60000元)</option>' +
+                        '<option value="L">室外機80噸 (價格: 200000元)</option>';
                 }
             }
 
@@ -161,77 +161,97 @@
                 
                 // 根據子選項顯示單選或多選
                 if (subSelect.value === "1") {
-                    checkboxes.innerHTML = `
-                        <input type="radio" id="option1" name="options" value="10" onchange="updateResult()">
-                        <label for="option1">室內機10噸 </label><br>
-                        <input type="radio" id="option2" name="options" value="20" onchange="updateResult()">
-                        <label for="option2">室內機20噸 </label><br>`;
+                    checkboxes.innerHTML = 
+                        '<input type="radio" id="option1" name="options" value="10" data-price="25000" onchange="updateResult()">' +
+                        '<label for="option1">室內機10噸 (價格: 25000元)</label><br>' +
+                        '<input type="radio" id="option2" name="options" value="20" data-price="40000" onchange="updateResult()">' +
+                        '<label for="option2">室內機20噸 (價格: 40000元)</label><br>';
                 } else {
-                    checkboxes.innerHTML = `
-                        <input type="checkbox" id="option1" value="10" onchange="updateResult()">
-                        <label for="option1">室內機10噸 </label><br>
-                        <input type="checkbox" id="option2" value="20" onchange="updateResult()">
-                        <label for="option2">室內機20噸 </label><br>`;
+                    checkboxes.innerHTML = 
+                        '<input type="checkbox" id="option1" value="10" data-price="25000" onchange="updateResult()">' +
+                        '<label for="option1">室內機10噸 (價格: 25000元)</label><br>' +
+                        '<input type="checkbox" id="option2" value="20" data-price="40000" onchange="updateResult()">' +
+                        '<label for="option2">室內機20噸 (價格: 40000元)</label><br>' +
+                        '<input type="checkbox" id="option3" value="30" data-price="60000" onchange="updateResult()">' +
+                        '<label for="option3">室內機30噸 (價格: 60000元)</label><br>';
                 }
-            } else {
-                checkboxDiv.style.display = "none"; // 隱藏勾選題
             }
         }
 
         function updateResult() {
+            var subSelect = document.getElementById("sub-options");
             var thirdSelect = document.getElementById("third-options");
-            var selectedOption = document.querySelector('input[name="options"]:checked');
-            var checkboxes = document.querySelectorAll('#checkboxes input[type="checkbox"]');
             var result = document.getElementById("result");
             var sumDisplay = document.getElementById("sumDisplay");
-            var total = 0;
 
-            // 室外機的對應值
-            var valueMapping = {
-                "A": 15,
-                "B": 20,
-                "C": 15,
-                "D": 40,
-                "E": 15,
-                "F": 30,
-                "G": 15,
-                "H": 60,
-                "I": 15,
-                "J": 40,
-                "K": 15,
-                "L": 80,
-            };
+            var indoorUnitTonnage = 0;
+            var selectedPrice = 0;
 
-            // 取得所選擇的室外機的值
-            var selectedValue = valueMapping[thirdSelect.value.charAt(thirdSelect.value.length - 1)];
-
-            // 計算選擇的總和
-            if (selectedOption) {
-                total += parseInt(selectedOption.value);
-            }
-
-            // 多選處理
-            checkboxes.forEach(function (checkbox) {
-                if (checkbox.checked) {
-                    total += parseInt(checkbox.value); // 多選的值
+            // 計算選中的室內機的總噸位和價格
+            if (subSelect.value === "1") {
+                var radios = document.getElementsByName("options");
+                for (var i = 0; i < radios.length; i++) {
+                    if (radios[i].checked) {
+                        indoorUnitTonnage += parseInt(radios[i].value);
+                        selectedPrice += parseInt(radios[i].getAttribute("data-price"));
+                    }
                 }
-            });
-
-            // 更新錯誤提示和總和顯示
-            if (total > selectedValue) {
-                result.innerHTML = "總和不可超過 " + selectedValue + " 噸。";
-                result.classList.add("error");
             } else {
-                sumDisplay.innerHTML = "目前總和: " + total + " 噸。";
-                result.innerHTML = ""; // 隱藏錯誤提示
+                var checkboxes = document.querySelectorAll("#checkboxes input[type='checkbox']:checked");
+                checkboxes.forEach(function(checkbox) {
+                    indoorUnitTonnage += parseInt(checkbox.value);
+                    selectedPrice += parseInt(checkbox.getAttribute("data-price"));
+                });
             }
+
+            var outdoorUnit = thirdSelect.value;
+
+            // 根據所選的室外機確定可用的噸位和價格
+            var outdoorUnitTonnage = 0;
+            var outdoorUnitPrice = 0;
+
+            if (outdoorUnit) {
+                var outdoorOptions = {
+                    "A": { tonnage: 15, price: 50000 },
+                    "B": { tonnage: 20, price: 70000 },
+                    "C": { tonnage: 15, price: 50000 },
+                    "D": { tonnage: 40, price: 120000 },
+                    "E": { tonnage: 15, price: 55000 },
+                    "F": { tonnage: 30, price: 90000 },
+                    "G": { tonnage: 15, price: 55000 },
+                    "H": { tonnage: 60, price: 150000 },
+                    "I": { tonnage: 15, price: 60000 },
+                    "J": { tonnage: 40, price: 110000 },
+                    "K": { tonnage: 15, price: 60000 },
+                    "L": { tonnage: 80, price: 200000 }
+                };
+
+                outdoorUnitTonnage = outdoorOptions[outdoorUnit].tonnage;
+                outdoorUnitPrice = outdoorOptions[outdoorUnit].price;
+            }
+
+            // 顯示錯誤消息（如果有）
+            if (indoorUnitTonnage > outdoorUnitTonnage) {
+                result.classList.add("error");
+                result.innerHTML = "錯誤：室內機噸位 (" + indoorUnitTonnage + ") 超過室外機噸位 (" + outdoorUnitTonnage + ")！";
+                sumDisplay.innerHTML = ""; // 清空總和顯示
+                return; // 如果有錯誤，結束函數
+            } else {
+                result.classList.remove("error");
+                result.innerHTML = ""; // 清空錯誤提示
+            }
+
+            // 更新總和顯示
+            sumDisplay.innerHTML = "室內機噸位總和: " + indoorUnitTonnage + " 噸<br>總價格: " + (selectedPrice + outdoorUnitPrice) + " 元";
         }
     </script>
 </head>
 <body>
+    <h1>冷氣MENU</h1>
+
     <div class="block">
-        <label for="options" class="inline">選擇品牌：</label>
-        <select id="options" name="options" class="inline" onchange="showSubOptions()">
+        <label for="options" class="inline">選擇品牌:</label>
+        <select id="options" onchange="showSubOptions()">
             <option value="">請選擇</option>
             <option value="option1">日立</option>
             <option value="option2">大金</option>
@@ -240,25 +260,25 @@
     </div>
 
     <div class="block">
-        <label id="sub-label" for="sub-options" class="inline" style="display:none;">選擇機型：</label>
-        <select id="sub-options" name="sub-options" class="inline" style="display:none;" onchange="showThirdOptions()">
+        <label id="sub-label" for="sub-options" class="inline" style="display: none;">選擇型號:</label>
+        <select id="sub-options" onchange="showThirdOptions()" style="display: none;">
+            <option value="">請選擇</option>
         </select>
     </div>
 
     <div class="block">
-        <label id="third-label" for="third-options" class="inline" style="display:none;">選擇室外機：</label>
-        <select id="third-options" name="third-options" class="inline" style="display:none;" onchange="displayCheckboxes()">
+        <label id="third-label" for="third-options" class="inline" style="display: none;">選擇室外機:</label>
+        <select id="third-options" onchange="displayCheckboxes()" style="display: none;">
+            <option value="">請選擇</option>
         </select>
     </div>
 
-    <div id="checkbox-div" class="block" style="display:none;">
-        <p>選擇室內機：</p>
-        <div id="checkboxes">
-            <!-- 動態添加選項 -->
-        </div>
+    <div id="checkbox-div" style="display: none;">
+        <h3>選擇室內機:</h3>
+        <div id="checkboxes"></div>
     </div>
 
-    <div id="result"></div>
+    <div id="result" class="error"></div>
     <div id="sumDisplay"></div>
 </body>
 </html>
