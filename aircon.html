@@ -1,3 +1,6 @@
+# 定義 HTML 結構       
+html_content = """
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -292,3 +295,12 @@
     <div id="sumDisplay"></div>
 </body>
 </html>
+"""
+
+
+
+# 將 HTML 寫入檔案
+with open("dynamic_dropdown.html", "w", encoding="utf-8") as file:
+    file.write(html_content)
+
+print("HTML 檔案已成功生成！")
