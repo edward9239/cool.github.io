@@ -1,34 +1,37 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>冷氣MENU</title>
-
-    
     <style>
         body {
-            text-align: center; /* 置中內容 */
-            font-family: "Chocolate Classical Sans", sans-serif; /* 設定整個頁面的字體 */
+            text-align: center;
+            font-family: "Chocolate Classical Sans", sans-serif;
+            font-size: 23px;
         }
         .inline {
-            display: inline-block; /* 將標籤與選單水平排列 */
-            margin-right: 10px; /* 增加標籤和選單之間的間距 */
+            display: inline-block;
+            margin-right: 10px;
         }
         .block {
             display: block;
-            margin-top: 10px; /* 增加垂直間距 */
+            margin-top: 10px;
         }
         #result {
-            font-size: 40px; /* 調整字體大小 */
-            margin-top: 20px; /* 增加上邊距 */
+            font-size: 30px;
+            margin-top: 15px;
         }
         #sumDisplay {
-        font-size: 40px; /* 調整字體大小 */
-        margin-top: 20px; /* 增加上邊距 */
-    }
+            font-size: 40px;
+            margin-top: 20px;
+        }
         .error {
-            color: red; /* 錯誤消息顯示為紅色 */
+            color: red;
+        }
+        /* 調整選項的字體大小 */
+        select {
+            font-size: 18px; /* 您可以調整這個值 */
         }
     </style>
     <script>
@@ -42,24 +45,21 @@
             var result = document.getElementById("result");
             var sumDisplay = document.getElementById("sumDisplay");
 
-            // 隱藏所有下層選單和勾選題
+            // 隱藏和清空下方所有內容
             subSelect.style.display = "none";
             subLabel.style.display = "none";
             thirdSelect.style.display = "none"; 
             thirdLabel.style.display = "none";
             checkboxDiv.style.display = "none"; 
-            result.innerHTML = ""; // 清空結果顯示
-            sumDisplay.innerHTML = ""; // 清空總和顯示
+            result.innerHTML = ""; 
+            sumDisplay.innerHTML = ""; 
 
-            // 清空下層選單的選擇
             subSelect.value = "";
             thirdSelect.value = "";
 
-            // 清除之前的錯誤提示
             result.classList.remove("error");
-            result.innerHTML = ""; // 清空錯誤提示
+            result.innerHTML = ""; 
           
-            // 根據選擇的主選項顯示相應的子選項
             if (mainSelect.value) {
                 subSelect.innerHTML = 
                     '<option value="">請選擇</option>' +
@@ -75,20 +75,32 @@
             var subSelect = document.getElementById("sub-options");
             var thirdSelect = document.getElementById("third-options");
             var thirdLabel = document.getElementById("third-label");
-            var checkboxDiv = document.getElementById("checkbox-div");
             var result = document.getElementById("result");
+            var sumDisplay = document.getElementById("sumDisplay");
+            var checkboxDiv = document.getElementById("checkbox-div");
+            var checkboxes = document.getElementById("checkboxes");
 
-            // 清除之前的錯誤提示
-            result.classList.remove("error");
-            result.innerHTML = ""; // 清空錯誤提示
-
-            // 清空第三層選單
-            thirdSelect.innerHTML = "";
+            // 隱藏和清空下方所有內容
             thirdSelect.style.display = "none"; 
             thirdLabel.style.display = "none";
+            checkboxDiv.style.display = "none"; 
+            result.innerHTML = ""; 
+            sumDisplay.innerHTML = ""; 
+            checkboxes.innerHTML = ""; // 清空勾選框
 
-            // 日立的子選項
             if (mainSelect.value === "option1") {
+                if (subSelect.value === "1") {
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="E">室外機15噸、室內機15噸 (價格: 55000元)</option>' +
+                        '<option value="F">室外機30噸、室內機15噸 (價格: 90000元)</option>';
+                } else if (subSelect.value === "2") {
+                    thirdSelect.innerHTML = 
+                        '<option value="">請選擇</option>' +
+                        '<option value="G">室外機15噸 (價格: 55000元)</option>' +
+                        '<option value="H">室外機60噸 (價格: 150000元)</option>';
+                }
+            } else if (mainSelect.value === "option2") {
                 if (subSelect.value === "1") {
                     thirdSelect.innerHTML = 
                         '<option value="">請選擇</option>' +
@@ -100,25 +112,7 @@
                         '<option value="C">室外機15噸 (價格: 50000元)</option>' +
                         '<option value="D">室外機40噸 (價格: 120000元)</option>';
                 }
-            }
-
-            // 大金的子選項
-            else if (mainSelect.value === "option2") {
-                if (subSelect.value === "1") {
-                    thirdSelect.innerHTML = 
-                        '<option value="">請選擇</option>' +
-                        '<option value="E">室外機15噸 (價格: 55000元)</option>' +
-                        '<option value="F">室外機30噸 (價格: 90000元)</option>';
-                } else if (subSelect.value === "2") {
-                    thirdSelect.innerHTML = 
-                        '<option value="">請選擇</option>' +
-                        '<option value="G">室外機15噸 (價格: 55000元)</option>' +
-                        '<option value="H">室外機60噸 (價格: 150000元)</option>';
-                }
-            }
-
-            // 國際的子選項
-            else if (mainSelect.value === "option3") {
+            } else if (mainSelect.value === "option3") {
                 if (subSelect.value === "1") {
                     thirdSelect.innerHTML = 
                         '<option value="">請選擇</option>' +
@@ -132,23 +126,10 @@
                 }
             }
 
-            // 如果有選擇子選項，顯示第三層選單
             if (subSelect.value) {
                 thirdSelect.style.display = "inline-block"; 
                 thirdLabel.style.display = "inline-block"; 
-            } else {
-                // 當沒有選擇子選項時，隱藏第三層選單及其勾選題
-                thirdSelect.style.display = "none"; 
-                thirdLabel.style.display = "none";
-                document.getElementById("checkbox-div").style.display = "none"; 
             }
-
-            // 清空選擇室內機的相關資訊
-            var checkboxDiv = document.getElementById("checkbox-div");
-            checkboxDiv.style.display = "none"; 
-
-            // 隱藏目前總和顯示
-            sumDisplay.innerHTML = ""; // 清空總和顯示
         }
 
         function displayCheckboxes() {
@@ -159,32 +140,30 @@
             var result = document.getElementById("result");
             var sumDisplay = document.getElementById("sumDisplay");
 
-            // 清除之前的錯誤提示
+            // 隱藏結果和總計顯示
             result.classList.remove("error");
-            result.innerHTML = ""; // 清空錯誤提示
+            result.innerHTML = ""; 
+            sumDisplay.innerHTML = ""; 
 
             checkboxDiv.style.display = "none"; 
+            checkboxes.innerHTML = ""; // 清空勾選框
 
-            // 顯示勾選題
-            if (thirdSelect.value) {
-                checkboxDiv.style.display = "block"; // 顯示勾選題
-                
-                // 根據子選項顯示單選或多選
-                if (subSelect.value === "1") {
-                    checkboxes.innerHTML = 
-                        '<input type="radio" id="option1" name="options" value="10" data-price="25000" onchange="updateResult()">' +
-                        '<label for="option1">室內機10噸 (價格: 25000元)</label><br>' +
-                        '<input type="radio" id="option2" name="options" value="20" data-price="40000" onchange="updateResult()">' +
-                        '<label for="option2">室內機20噸 (價格: 40000元)</label><br>';
-                } else {
-                    checkboxes.innerHTML = 
-                        '<input type="checkbox" id="option1" value="10" data-price="25000" onchange="updateResult()">' +
-                        '<label for="option1">室內機10噸 (價格: 25000元)</label><br>' +
-                        '<input type="checkbox" id="option2" value="20" data-price="40000" onchange="updateResult()">' +
-                        '<label for="option2">室內機20噸 (價格: 40000元)</label><br>' +
-                        '<input type="checkbox" id="option3" value="30" data-price="60000" onchange="updateResult()">' +
-                        '<label for="option3">室內機30噸 (價格: 60000元)</label><br>';
-                }
+            if (subSelect.value === "2") {
+                checkboxDiv.style.display = "block"; 
+                checkboxes.innerHTML = 
+                    '<input type="checkbox" id="option1" value="10" data-price="25000" onchange="updateResult()">' +
+                    '<label for="option1">室內機10噸 (價格: 25000元)</label><br>' +
+                    '<input type="checkbox" id="option2" value="20" data-price="40000" onchange="updateResult()">' +
+                    '<label for="option2">室內機20噸 (價格: 40000元)</label><br>' +
+                    '<input type="checkbox" id="option3" value="30" data-price="60000" onchange="updateResult()">' +
+                    '<label for="option3">室內機30噸 (價格: 60000元)</label><br>';
+            }
+
+            // 新增顯示選擇的第三階層選項結果
+            if (subSelect.value === "1" && thirdSelect.value) {
+                result.innerHTML = "選擇的第三階層選項: " + thirdSelect.options[thirdSelect.selectedIndex].text;
+            } else {
+                result.innerHTML = ""; // 清空結果顯示
             }
         }
 
@@ -197,7 +176,6 @@
             var indoorUnitTonnage = 0;
             var selectedPrice = 0;
 
-            // 計算選中的室內機的總噸位和價格
             if (subSelect.value === "1") {
                 var radios = document.getElementsByName("options");
                 for (var i = 0; i < radios.length; i++) {
@@ -215,8 +193,6 @@
             }
 
             var outdoorUnit = thirdSelect.value;
-
-            // 根據所選的室外機確定可用的噸位和價格
             var outdoorUnitTonnage = 0;
             var outdoorUnitPrice = 0;
 
@@ -240,19 +216,18 @@
                 outdoorUnitPrice = outdoorOptions[outdoorUnit].price;
             }
 
-            // 顯示錯誤消息（如果有）
+            // 判斷室內機和室外機的總噸位
             if (indoorUnitTonnage > outdoorUnitTonnage) {
+                result.innerHTML = "室內機的總噸位超過室外機的噸位!";
                 result.classList.add("error");
-                result.innerHTML = "錯誤：室內機噸位 (" + indoorUnitTonnage + ") 超過室外機噸位 (" + outdoorUnitTonnage + ")！";
-                sumDisplay.innerHTML = ""; // 清空總和顯示
-                return; // 如果有錯誤，結束函數
+                sumDisplay.innerHTML = ""; 
             } else {
                 result.classList.remove("error");
-                result.innerHTML = ""; // 清空錯誤提示
+                result.innerHTML = "室內機總噸位: " + indoorUnitTonnage + "噸" + 
+                    "<br>室外機噸位: " + outdoorUnitTonnage + "噸" + 
+                    "<br>價格總計: " + (selectedPrice + outdoorUnitPrice) + "元";
+                sumDisplay.innerHTML = "總計: " + (selectedPrice + outdoorUnitPrice) + "元";
             }
-
-            // 更新總和顯示
-            sumDisplay.innerHTML = "室內機噸位總和: " + indoorUnitTonnage + " 噸<br>總價格: " + (selectedPrice + outdoorUnitPrice) + " 元";
         }
     </script>
 </head>
@@ -263,8 +238,8 @@
         <label for="options" class="inline">選擇品牌:</label>
         <select id="options" onchange="showSubOptions()">
             <option value="">請選擇</option>
-            <option value="option1">日立</option>
-            <option value="option2">大金</option>
+            <option value="option1">大金</option>
+            <option value="option2">日立</option>
             <option value="option3">國際</option>
         </select>
     </div>
